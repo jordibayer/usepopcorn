@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { KEY } from "./secrets";
 
 const tempMovieData = [
   {
@@ -43,8 +44,19 @@ const tempWatchedData = [
 ];
 
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const query = "interstellar";
+
+  useEffect(function () {
+    async function fetchMovies() {
+      const res = await fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=${query}`);
+      const data = await res.json();
+      setMovies(data.Search);
+      console.log(data.Search);
+    }
+    fetchMovies();
+  }, []);
 
   return (
     <>
