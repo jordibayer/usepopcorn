@@ -23,6 +23,7 @@ export default function StarRating({ maxRating = 5, color = "#fcc419", size = 48
 
   function handleRating(rating) {
     setRating(rating);
+    onSetRating(rating);
   }
 
   const textStyle = {
